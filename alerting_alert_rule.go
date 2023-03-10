@@ -74,6 +74,17 @@ func (c *Client) AlertRule(uid string) (AlertRule, error) {
 	return result, err
 }
 
+// AlertRules fetches all alert rules.
+func (c *Client) AlertRules() ([]*AlertRule, error) {
+	path := "/api/v1/provisioning/alert-rules"
+	var result []*AlertRule
+	err := c.request("GET", path, nil, nil, &result)
+	if err != nil {
+		return []*AlertRule{}, err
+	}
+	return result, err
+}
+
 // AlertRuleGroup fetches a group of alert rules, identified by its name and the UID of its folder.
 func (c *Client) AlertRuleGroup(folderUID string, name string) (RuleGroup, error) {
 	path := fmt.Sprintf("/api/v1/provisioning/folder/%s/rule-groups/%s", folderUID, name)
